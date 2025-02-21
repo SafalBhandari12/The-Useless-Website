@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/your-repository-name/static/css/main.97742166.css",
-    "main.js": "/your-repository-name/static/js/main.c4bb5892.js",
-    "static/js/453.ed3810f9.chunk.js": "/your-repository-name/static/js/453.ed3810f9.chunk.js",
-    "index.html": "/your-repository-name/index.html",
-    "main.97742166.css.map": "/your-repository-name/static/css/main.97742166.css.map",
-    "main.c4bb5892.js.map": "/your-repository-name/static/js/main.c4bb5892.js.map",
-    "453.ed3810f9.chunk.js.map": "/your-repository-name/static/js/453.ed3810f9.chunk.js.map"
+    "main.css": "/The-Useless-Website/static/css/main.884862cb.css",
+    "main.js": "/The-Useless-Website/static/js/main.1240cc4e.js",
+    "static/js/453.ed3810f9.chunk.js": "/The-Useless-Website/static/js/453.ed3810f9.chunk.js",
+    "index.html": "/The-Useless-Website/index.html",
+    "main.884862cb.css.map": "/The-Useless-Website/static/css/main.884862cb.css.map",
+    "main.1240cc4e.js.map": "/The-Useless-Website/static/js/main.1240cc4e.js.map",
+    "453.ed3810f9.chunk.js.map": "/The-Useless-Website/static/js/453.ed3810f9.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.97742166.css",
-    "static/js/main.c4bb5892.js"
+    "static/css/main.884862cb.css",
+    "static/js/main.1240cc4e.js"
   ]
 }
