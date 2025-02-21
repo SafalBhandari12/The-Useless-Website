@@ -117,25 +117,27 @@ const App = () => {
     if (buttonText === "TO A") {
       setButtonText("TO ANOTHER");
     }
-
     const randomSite = sitesList[Math.floor(Math.random() * sitesList.length)];
     window.open(randomSite, "_blank");
   };
 
   return (
-    <div className='flex items-center justify-center min-h-screen bg-gray-900 text-white'>
-      <div className='text-center'>
-        <h1 className='text-5xl font-bold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500'>
-          USELESS WEBSITES
-        </h1>
-        <button
-          onClick={handleClick}
-          className='px-8 py-4 text-2xl font-bold bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full shadow-lg hover:from-cyan-600 hover:to-blue-700 transition-all transform hover:scale-105 active:scale-95'
-        >
-          <span className='block'>TAKE ME {buttonText}</span>
-          <span className='block text-sm mt-1 opacity-80'>USELESS WEBSITE</span>
-        </button>
-      </div>
+    <div className='min-h-screen bg-gray-900 flex flex-col items-center justify-center text-center px-4'>
+      <h1 className='text-5xl font-extrabold mb-4 text-gray-100'>
+        Useless Websites
+      </h1>
+      <p className='text-gray-400 mb-8 max-w-xl'>
+        Welcome to Useless Websites – a carefully curated collection of quirky
+        sites that serve no serious purpose but are great for a quick laugh or
+        distraction. Click the button below to discover a random site and enjoy
+        some unexpected fun!
+      </p>
+      <button
+        onClick={handleClick}
+        className='minimal-button px-8 py-4 text-xl font-bold rounded-full bg-gray-800 text-gray-100 border border-blue-600 hover:bg-gray-700'
+      >
+        TAKE ME {buttonText}
+      </button>
     </div>
   );
 };
