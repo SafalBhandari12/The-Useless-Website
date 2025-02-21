@@ -1,143 +1,119 @@
-import React, { useState } from "react";
+import React, { useState, memo } from "react";
+import Particles from "react-tsparticles";
+import { loadSlim } from "tsparticles-slim";
+import sitesList from "./sitesList";
+
+// Memoized Floating Cube component to prevent unnecessary re-renders
+const FloatingCube = memo(({ delay, style }) => (
+  <div
+    className='absolute w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 opacity-20 rounded-lg'
+    style={{
+      ...style,
+      animation: `float 6s ease-in-out ${delay} infinite`,
+      transform: "rotate(45deg)",
+    }}
+  />
+));
 
 const App = () => {
-  const [buttonText, setButtonText] = useState("TO A");
+  const [buttonText, setButtonText] = useState({
+    main: "🚀 DISCOVER",
+    sub: "Click to explore",
+  });
+  const [clickCount, setClickCount] = useState(0);
 
-  const sitesList = [
-    "https://sliding.toys/mystic-square/8-puzzle/daily/",
-    "https://longdogechallenge.com/",
-    "https://maze.toys/mazes/mini/daily/",
-    "https://optical.toys",
-    "https://paint.toys/calligram/",
-    "https://puginarug.com",
-    "https://memory.toys/classic/easy/",
-    "https://alwaysjudgeabookbyitscover.com",
-    "https://clicking.toys/flip-grid/neat-nine/3-holes/",
-    "https://weirdorconfusing.com/",
-    "https://checkbox.toys/scale/",
-    "https://binarypiano.com/",
-    "https://mondrianandme.com/",
-    "https://onesquareminesweeper.com/",
-    "https://cursoreffects.com",
-    "http://floatingqrcode.com/",
-    "https://thatsthefinger.com/",
-    "https://cant-not-tweet-this.com/",
-    "http://heeeeeeeey.com/",
-    "http://corndog.io/",
-    "http://eelslap.com/",
-    "http://www.staggeringbeauty.com/",
-    "http://burymewithmymoney.com/",
-    "https://smashthewalls.com/",
-    "https://jacksonpollock.org/",
-    "http://endless.horse/",
-    "http://drawing.garden/",
-    "https://www.trypap.com/",
-    "http://www.republiquedesmangues.fr/",
-    "http://www.movenowthinklater.com/",
-    "https://sliding.toys/mystic-square/15-puzzle/daily/",
-    "https://paint.toys/",
-    "https://checkboxrace.com/",
-    "http://www.rrrgggbbb.com/",
-    "http://www.koalastothemax.com/",
-    "https://rotatingsandwiches.com/",
-    "http://www.everydayim.com/",
-    "http://randomcolour.com/",
-    "http://maninthedark.com/",
-    "http://cat-bounce.com/",
-    "http://chrismckenzie.com/",
-    "https://thezen.zone/",
-    "http://ninjaflex.com/",
-    "http://ihasabucket.com/",
-    "https://toms.toys",
-    "http://corndogoncorndog.com/",
-    "http://www.hackertyper.com/",
-    "https://pointerpointer.com",
-    "http://imaninja.com/",
-    "http://www.partridgegetslucky.com/",
-    "http://www.ismycomputeron.com/",
-    "http://www.nullingthevoid.com/",
-    "http://www.muchbetterthanthis.com/",
-    "http://www.yesnoif.com/",
-    "http://lacquerlacquer.com",
-    "https://clicking.toys/peg-solitaire/solid/",
-    "http://potatoortomato.com/",
-    "http://iamawesome.com/",
-    "https://strobe.cool/",
-    "http://thisisnotajumpscare.com/",
-    "http://doughnutkitten.com/",
-    "http://crouton.net/",
-    "http://corgiorgy.com/",
-    "http://www.wutdafuk.com/",
-    "http://unicodesnowmanforyou.com/",
-    "http://chillestmonkey.com/",
-    "http://scroll-o-meter.club/",
-    "http://www.crossdivisions.com/",
-    "http://tencents.info/",
-    "https://memory.toys/maze/easy/",
-    "https://boringboringboring.com/",
-    "http://www.patience-is-a-virtue.org/",
-    "http://pixelsfighting.com/",
-    "http://isitwhite.com/",
-    "https://existentialcrisis.com/",
-    "http://onemillionlols.com/",
-    "http://www.omfgdogs.com/",
-    "http://oct82.com/",
-    "http://chihuahuaspin.com/",
-    "http://www.blankwindows.com/",
-    "http://tunnelsnakes.com/",
-    "http://www.trashloop.com/",
-    "http://spaceis.cool/",
-    "http://www.doublepressure.com/",
-    "http://www.donothingfor2minutes.com/",
-    "http://buildshruggie.com/",
-    "https://optical.toys/thatcher-effect/",
-    "http://yeahlemons.com/",
-    "http://wowenwilsonquiz.com",
-    "http://notdayoftheweek.com/",
-    "https://number.toys/",
-    "https://card.toys",
-    "http://www.amialright.com/",
-    "https://greatbignothing.com/",
-    "https://zoomquilt.org/",
-    "https://optical.toys/troxler-fade/",
-    "https://dadlaughbutton.com/",
-    "https://remoji.com/",
-    "http://papertoilet.com/",
-    "https://loopedforinfinity.com/",
-    "https://www.ripefordebate.com/",
-    "https://end.city/",
-    "https://elonjump.com/",
-    "https://www.bouncingdvdlogo.com/",
-    "https://toybox.toms.toys",
-    "https://memory.toys/monkey-challenge/easy/",
-    "https://memory.toys",
+  // CSS styles for animations
+  const styles = `
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(45deg); }
+      50% { transform: translateY(-20px) rotate(60deg); }
+    }
+  `;
+
+  const buttonVariants = [
+    { main: "🚀 DISCOVER", sub: "Find hidden web gems" },
+    { main: "🎉 SURPRISE ME", sub: "I'm feeling adventurous" },
+    { main: "🔮 REVEAL", sub: "Uncover digital magic" },
+    { main: "🌈 WHIMSICAL", sub: "Show me wonder" },
+    { main: "✨ ANOTHER", sub: "Keep the magic coming" },
   ];
 
+  const particlesInit = async (engine) => {
+    await loadSlim(engine);
+  };
+
   const handleClick = () => {
-    if (buttonText === "TO A") {
-      setButtonText("TO ANOTHER");
-    }
     const randomSite = sitesList[Math.floor(Math.random() * sitesList.length)];
     window.open(randomSite, "_blank");
+    setClickCount((prev) => (prev + 1) % buttonVariants.length);
+    setButtonText(buttonVariants[clickCount]);
   };
 
   return (
-    <div className='min-h-screen bg-gray-900 flex flex-col items-center justify-center text-center px-4'>
-      <h1 className='text-5xl font-extrabold mb-4 text-gray-100'>
-        Useless Websites
-      </h1>
-      <p className='text-gray-400 mb-8 max-w-xl'>
-        Welcome to Useless Websites – a carefully curated collection of quirky
-        sites that serve no serious purpose but are great for a quick laugh or
-        distraction. Click the button below to discover a random site and enjoy
-        some unexpected fun!
-      </p>
-      <button
-        onClick={handleClick}
-        className='minimal-button px-8 py-4 text-xl font-bold rounded-full bg-gray-800 text-gray-100 border border-blue-600 hover:bg-gray-700'
-      >
-        TAKE ME {buttonText}
-      </button>
+    <div className='min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex flex-col items-center justify-center text-center px-4 overflow-hidden'>
+      <style>{styles}</style>
+
+      {/* Particle Background */}
+      <div className='absolute inset-0 opacity-30'>
+        <Particles
+          init={particlesInit}
+          options={{
+            particles: {
+              number: { value: 50 },
+              move: { enable: true, speed: 1 },
+              size: { value: 1 },
+              opacity: { value: 0.3 },
+            },
+          }}
+        />
+      </div>
+
+      {/* Floating Cubes with Stable Animations */}
+      <FloatingCube delay='0s' style={{ top: "20%", left: "10%" }} />
+      <FloatingCube delay='2s' style={{ top: "70%", right: "15%" }} />
+      <FloatingCube delay='4s' style={{ top: "40%", right: "25%" }} />
+
+      {/* Main Content */}
+      <div className='relative z-10 space-y-8'>
+        <h1 className='text-6xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent'>
+          <span className='block mb-2'>Useless</span>
+          <span className='block text-7xl font-extrabold'>Websites</span>
+        </h1>
+
+        <p className='text-gray-300 text-lg mb-8 max-w-2xl mx-auto leading-relaxed'>
+          Explore our curated collection of quirky digital experiences. Each
+          click unveils a unique, whimsical web creation - perfect for sparking
+          joy or satisfying curiosity.
+        </p>
+
+        {/* Stable Interactive Button */}
+        <div className='space-y-4'>
+          <button
+            onClick={handleClick}
+            className='relative px-12 py-6 text-2xl font-bold rounded-2xl transition-all duration-300
+              bg-gradient-to-br from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500
+              shadow-xl hover:shadow-2xl hover:shadow-blue-500/30 text-white border-2 border-blue-300/20
+              before:absolute before:inset-0 before:bg-gradient-to-br before:from-blue-400/20 before:to-purple-400/20 before:blur-md
+              active:scale-95'
+          >
+            <span className='relative z-10 flex items-center justify-center gap-2'>
+              <span className='animate-wiggle'>
+                {buttonText.main.split(" ")[0]}
+              </span>
+              <span className='text-3xl'>{buttonText.main.split(" ")[1]}</span>
+            </span>
+            <div className='absolute inset-0 bg-blue-500/10 rounded-2xl animate-pulse' />
+          </button>
+
+          <p className='text-gray-400 text-sm font-mono italic'>
+            {buttonText.sub}
+          </p>
+        </div>
+      </div>
+
+      <div className='absolute bottom-8 text-gray-400 text-sm'>
+        Curated with ❤️ | {sitesList.length} experiences and counting
+      </div>
     </div>
   );
 };

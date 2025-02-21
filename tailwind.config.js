@@ -1,16 +1,15 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  content: ["./src/**/*.{js,jsx}"],
   theme: {
     extend: {
       animation: {
-        "gradient-x": "gradient-x 6s ease infinite",
-        
+        wiggle: "wiggle 1s ease-in-out infinite",
       },
       keyframes: {
-        "gradient-x": {
-          "0%, 100%": { "background-position": "0% 50%" },
-          "50%": { "background-position": "100% 50%" },
+        wiggle: {
+          "0%, 100%": { transform: "rotate(-3deg)" },
+          "50%": { transform: "rotate(3deg)" },
         },
       },
     },
