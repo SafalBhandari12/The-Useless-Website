@@ -83,7 +83,7 @@ const App = () => {
         <p className='text-gray-300 text-lg mb-8 max-w-2xl mx-auto leading-relaxed'>
           Explore our curated collection of quirky digital experiences. Each
           click unveils a unique, whimsical web creation - perfect for sparking
-          joy or satisfying curiosity.
+          joy or satisfying curiosity
         </p>
 
         {/* Stable Interactive Button */}
